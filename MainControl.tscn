@@ -1,0 +1,722 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://MainControl.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/background_music.ogg" type="AudioStream" id=2]
+[ext_resource path="res://CraftingPanel.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/cameo.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Resources/boost.png" type="Texture" id=5]
+[ext_resource path="res://SmoothieBooster.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/Resources/kings_crown_transparent.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Resources/coins.png" type="Texture" id=8]
+[ext_resource path="res://Production/ProductionPanel.gd" type="Script" id=9]
+[ext_resource path="res://InventoryPanel.gd" type="Script" id=10]
+[ext_resource path="res://EmployeePanel.gd" type="Script" id=11]
+[ext_resource path="res://Sprites/Resources/kings_sword_transparent.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Resources/kings_cup_transparent.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Resources/kings_medal_transparent.png" type="Texture" id=14]
+
+[node name="MainControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -35.0
+autoplay = true
+
+[node name="InteractionAudioPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
+
+[node name="MainTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="AutoCrafterTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_top = 3.0
+margin_right = 1024.0
+margin_bottom = 603.0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryPanelPlaceholder" type="Panel" parent="GridContainer"]
+visible = false
+margin_right = 570.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 450, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryPanel" type="Panel" parent="GridContainer"]
+margin_right = 454.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 450, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="GridContainer/InventoryPanel"]
+margin_left = 224.0
+margin_top = 17.0
+margin_right = 325.0
+margin_bottom = 31.0
+size_flags_vertical = 0
+text = "000000/000000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryLabel" type="Label" parent="GridContainer/InventoryPanel"]
+margin_left = 356.0
+margin_top = 12.0
+margin_right = 417.0
+margin_bottom = 26.0
+rect_scale = Vector2( 1.4, 1.4 )
+text = "Inventory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="GridContainer/InventoryPanel"]
+margin_left = 222.0
+margin_top = 35.0
+margin_right = 443.0
+margin_bottom = 44.0
+step = 1.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="GridContainer/InventoryPanel"]
+margin_left = 10.0
+margin_top = 25.0
+margin_right = 440.0
+margin_bottom = 390.0
+tab_align = 0
+drag_to_rearrange_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Raw" type="Tabs" parent="GridContainer/InventoryPanel/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+drag_to_rearrange_enabled = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/InventoryPanel/TabContainer/Raw"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 416.0
+margin_bottom = 331.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/InventoryPanel/TabContainer/Raw/ScrollContainer"]
+margin_right = 406.0
+size_flags_horizontal = 3
+
+[node name="Goods" type="Tabs" parent="GridContainer/InventoryPanel/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/InventoryPanel/TabContainer/Goods"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 416.0
+margin_bottom = 331.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/InventoryPanel/TabContainer/Goods/ScrollContainer"]
+margin_right = 406.0
+size_flags_horizontal = 3
+
+[node name="Tools" type="Tabs" parent="GridContainer/InventoryPanel/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/InventoryPanel/TabContainer/Tools"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 416.0
+margin_bottom = 331.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/InventoryPanel/TabContainer/Tools/ScrollContainer"]
+margin_right = 406.0
+size_flags_horizontal = 3
+
+[node name="CraftingPanelPlaceholder" type="Panel" parent="GridContainer"]
+visible = false
+margin_left = 575.0
+margin_right = 1145.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 570, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CraftingPanel" type="Panel" parent="GridContainer"]
+margin_left = 454.0
+margin_right = 1024.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 570, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="GridContainer/CraftingPanel"]
+margin_left = 10.0
+margin_top = 25.0
+margin_right = 560.0
+margin_bottom = 390.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Employment" type="Tabs" parent="GridContainer/CraftingPanel/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 11 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/CraftingPanel/TabContainer/Employment"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 540.0
+margin_bottom = 289.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/CraftingPanel/TabContainer/Employment/ScrollContainer"]
+margin_right = 530.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SmoothieBooster" type="HBoxContainer" parent="GridContainer/CraftingPanel/TabContainer/Employment"]
+margin_left = 10.0
+margin_top = 295.0
+margin_right = 540.0
+margin_bottom = 327.0
+rect_min_size = Vector2( 530, 32 )
+hint_tooltip = "Employees will consume various smoothies which increases their output."
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/CraftingPanel/TabContainer/Employment/SmoothieBooster"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GridContainer/CraftingPanel/TabContainer/Employment/SmoothieBooster"]
+margin_left = 36.0
+margin_top = 9.0
+margin_right = 458.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Smoothie Booster"
+valign = 1
+
+[node name="CheckButton" type="CheckBox" parent="GridContainer/CraftingPanel/TabContainer/Employment/SmoothieBooster"]
+margin_left = 462.0
+margin_right = 530.0
+margin_bottom = 32.0
+rect_clip_content = true
+text = "Active"
+align = 2
+
+[node name="Production" type="Tabs" parent="GridContainer/CraftingPanel/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 9 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/CraftingPanel/TabContainer/Production"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 540.0
+margin_bottom = 331.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/CraftingPanel/TabContainer/Production/ScrollContainer"]
+margin_right = 530.0
+margin_bottom = 321.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InventoryLabel" type="Label" parent="GridContainer/CraftingPanel"]
+margin_left = 477.0
+margin_top = 11.0
+margin_right = 538.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1.4, 1.4 )
+text = "The Cave"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="GridContainer/CraftingPanel"]
+margin_left = 351.0
+margin_top = 15.0
+margin_right = 377.0
+margin_bottom = 29.0
+size_flags_vertical = 0
+text = "0/0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="GridContainer/CraftingPanel"]
+margin_left = 352.0
+margin_top = 33.0
+margin_right = 562.0
+margin_bottom = 42.0
+step = 1.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TradePanelPlaceholder" type="Panel" parent="GridContainer"]
+visible = false
+margin_top = 400.0
+margin_right = 454.0
+margin_bottom = 590.0
+rect_min_size = Vector2( 440, 190 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TradePanel" type="Panel" parent="GridContainer"]
+margin_top = 400.0
+margin_right = 454.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 440, 190 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TradePanel"]
+margin_left = 389.0
+margin_top = 8.0
+margin_right = 421.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GridContainer/TradePanel"]
+margin_left = 222.0
+margin_top = 17.0
+margin_right = 384.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+text = "0000000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TradeLabel" type="Label" parent="GridContainer/TradePanel"]
+margin_left = 11.0
+margin_top = 15.0
+margin_right = 72.0
+margin_bottom = 29.0
+rect_scale = Vector2( 2, 2 )
+text = "Trading"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/TradePanel"]
+margin_left = 13.0
+margin_top = 54.0
+margin_right = 416.0
+margin_bottom = 187.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/TradePanel/ScrollContainer"]
+margin_right = 403.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LogPanel" type="Panel" parent="GridContainer"]
+margin_left = 454.0
+margin_top = 400.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/LogPanel"]
+margin_left = 11.0
+margin_top = 7.0
+margin_right = 559.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Welcome to Sticks & Stones!"
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CraftStoneButton" type="Button" parent="."]
+margin_left = 698.0
+margin_top = 15.0
+margin_right = 769.0
+margin_bottom = 41.0
+text = "Collect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+visible = true
+margin_left = 42.0
+margin_top = -320.0
+margin_right = 411.0
+margin_bottom = -54.0
+popup_exclusive = true
+window_title = "Welcome to Sticktorio"
+dialog_autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AcceptDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 361.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "[b][u]Hej fellow caveman![/u][/b]
+
+and welcome to your little journey back to the future.
+
+Collect sticks, stones and others and create the basement of everything from it. and collect the four royal items to become the King of Sticktorio.
+
+Take your time, chill and drink a tea or rush the adventure to be the fastest - it's up to you!
+
+
+PS: You can hover most if the items, this will show you what exactly they do."
+text = "Hej fellow caveman!
+
+and welcome to your little journey back to the future.
+
+Collect sticks, stones and others and create the basement of everything from it. and collect the four royal items to become the King of Sticktorio.
+
+Take your time, chill and drink a tea or rush the adventure to be the fastest - it's up to you!
+
+
+PS: You can hover most if the items, this will show you what exactly they do."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AboutButton" type="Button" parent="."]
+margin_left = 774.0
+margin_top = 15.0
+margin_right = 799.0
+margin_bottom = 41.0
+text = "?"
+
+[node name="AboutDialog" type="AcceptDialog" parent="."]
+visible = true
+margin_left = 522.0
+margin_top = -315.0
+margin_right = 853.0
+margin_bottom = -78.0
+popup_exclusive = true
+window_title = "About Sticktorio"
+dialog_autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AboutDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 324.0
+margin_bottom = 201.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "[b][u]About Sticks and Stones[/u][/b]
+
+
+[b]Game by Flipez[/b] ([url=https://github.com/Flipez]GitHub[/url] | [url=https://auch.cool]Blog[/url])
+
+
+[b]Background Music:[/b] [url=https://joshuuu.itch.io/short-loopable-background-music]joshuuu[/url]
+[b]Interface Sounds:[/b] [url=https://assetstore.unity.com/packages/audio/sound-fx/interface-and-item-sounds-89646]Cafofo[/url]
+[b]Icons:[/b] [url=https://assetstore.unity.com/packages/2d/gui/icons/fantasy-icons-megapack-97000]REXARD[/url]"
+text = "About Sticks and Stones
+
+
+Game by Flipez (GitHub | Blog)
+
+
+Background Music: joshuuu
+Interface Sounds: Cafofo
+Icons: REXARD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioToggleButton" type="Button" parent="AboutDialog/RichTextLabel"]
+margin_left = 193.0
+margin_top = 87.0
+margin_right = 288.0
+margin_bottom = 107.0
+text = "Toggle Music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedRunLabel" type="Label" parent="."]
+margin_left = 945.0
+margin_top = 410.0
+margin_right = 1009.0
+margin_bottom = 424.0
+grow_horizontal = 0
+text = "00:00:000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WinDialog" type="AcceptDialog" parent="."]
+visible = true
+margin_left = 932.0
+margin_top = -654.0
+margin_right = 1295.0
+margin_bottom = -329.0
+window_title = "King of Sticktorio"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WinDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 355.0
+margin_bottom = 289.0
+bbcode_enabled = true
+bbcode_text = "[u]Congratulations![/u]
+
+You mastered to get the king of the country with almost unlimited resources and money.
+
+Now sit back and relax - the next adventure awaits!"
+text = "Congratulations!
+
+You mastered to get the king of the country with almost unlimited resources and money.
+
+Now sit back and relax - the next adventure awaits!"
+
+[node name="TextureRect" type="TextureRect" parent="WinDialog/RichTextLabel"]
+margin_left = 175.0
+margin_top = 95.0
+margin_right = 335.0
+margin_bottom = 255.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="WinDialog/RichTextLabel/TextureRect"]
+margin_left = 113.0
+margin_top = -27.0
+margin_right = 193.0
+margin_bottom = 53.0
+rect_rotation = 52.8
+texture = ExtResource( 7 )
+expand = true
+
+[node name="TextureRect2" type="TextureRect" parent="WinDialog/RichTextLabel/TextureRect"]
+margin_left = 16.0
+margin_top = 73.0
+margin_right = 96.0
+margin_bottom = 153.0
+rect_rotation = 33.0
+texture = ExtResource( 12 )
+expand = true
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="WinDialog/RichTextLabel/TextureRect"]
+margin_left = 97.0
+margin_top = 99.0
+margin_right = 177.0
+margin_bottom = 179.0
+rect_rotation = 13.2
+texture = ExtResource( 13 )
+expand = true
+
+[node name="TextureRect4" type="TextureRect" parent="WinDialog/RichTextLabel/TextureRect"]
+margin_left = 57.0
+margin_top = 133.0
+margin_right = 82.0
+margin_bottom = 158.0
+rect_rotation = 26.4
+texture = ExtResource( 14 )
+expand = true
+
+[node name="Label" type="Label" parent="WinDialog/RichTextLabel"]
+margin_left = 17.0
+margin_top = 133.0
+margin_right = 81.0
+margin_bottom = 181.0
+text = "Run Time:
+
+00:00:000"
+
+[node name="WinningProgress" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="WinningProgress"]
+margin_left = 473.0
+margin_top = 572.0
+margin_right = 969.0
+margin_bottom = 581.0
+rect_min_size = Vector2( 0, 9 )
+size_flags_horizontal = 0
+max_value = 4.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="WinningProgress"]
+margin_left = 981.0
+margin_top = 560.0
+margin_right = 1013.0
+margin_bottom = 592.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetDialog" type="ConfirmationDialog" parent="."]
+visible = true
+margin_left = 60.0
+margin_top = -617.0
+margin_right = 429.0
+margin_bottom = -371.0
+popup_exclusive = true
+window_title = "Sticktorio - The Grand Reset"
+dialog_autowrap = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ResetDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 361.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "[b][u]Hej again, caveman![/u][/b]
+
+this is a one time chance to increase the overall tickrate of the game for a small(?) sacrifice!
+
+You will lost all coins, inventory, production and employment. In exchange, with a chance of 50 percent, the tickrate will increase."
+text = "Hej again, caveman!
+
+this is a one time chance to increase the overall tickrate of the game for a small(?) sacrifice!
+
+You will lost all coins, inventory, production and employment. In exchange, with a chance of 50 percent, the tickrate will increase."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="MainTimer" to="." method="_on_MainTimer_timeout"]
+[connection signal="timeout" from="AutoCrafterTimer" to="." method="_on_AutoCrafterTimer_timeout"]
+[connection signal="tab_selected" from="GridContainer/InventoryPanel/TabContainer" to="GridContainer/InventoryPanel" method="_on_TabContainer_tab_selected"]
+[connection signal="tab_selected" from="GridContainer/CraftingPanel/TabContainer" to="GridContainer/CraftingPanel" method="_on_TabContainer_tab_selected"]
+[connection signal="pressed" from="GridContainer/CraftingPanel/TabContainer/Employment/SmoothieBooster/CheckButton" to="GridContainer/CraftingPanel/TabContainer/Employment/SmoothieBooster" method="_on_CheckButton_pressed"]
+[connection signal="button_up" from="CraftStoneButton" to="." method="_on_CraftStoneButton_button_up"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
+[connection signal="pressed" from="AboutButton" to="." method="_on_AboutButton_pressed"]
+[connection signal="confirmed" from="AboutDialog" to="." method="_on_AboutDialog_confirmed"]
+[connection signal="pressed" from="AboutDialog/RichTextLabel/AudioToggleButton" to="." method="_on_AudioToggleButton_pressed"]
+[connection signal="confirmed" from="ResetDialog" to="." method="_on_ResetDialog_confirmed"]

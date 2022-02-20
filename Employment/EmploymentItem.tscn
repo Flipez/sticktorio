@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Employment/EmploymentItem.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Resources/saw.png" type="Texture" id=2]
+
+[node name="EmploymentItem" type="HBoxContainer"]
+margin_right = 480.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+expand = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+margin_left = 36.0
+margin_right = 41.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 5, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 45.0
+margin_top = 9.0
+margin_right = 169.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Stone Collector"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThroughputLabel" type="Label" parent="."]
+margin_left = 173.0
+margin_right = 297.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.156863, 0.133333, 0.133333, 1 )
+text = "(0 out)"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+margin_left = 301.0
+margin_right = 306.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 5, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HireButton" type="Button" parent="."]
+margin_left = 310.0
+margin_right = 436.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 126, 0 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Hire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 440.0
+margin_right = 440.0
+margin_bottom = 32.0
+
+[node name="FireButton" type="Button" parent="."]
+margin_left = 444.0
+margin_right = 480.0
+margin_bottom = 32.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Fire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="HireButton" to="." method="_on_HireButton_pressed"]
+[connection signal="pressed" from="FireButton" to="." method="_on_FireButton_pressed"]
