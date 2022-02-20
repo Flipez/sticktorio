@@ -515,12 +515,12 @@ __meta__ = {
 [node name="RichTextLabel" type="RichTextLabel" parent="AboutDialog"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 324.0
+margin_right = 323.0
 margin_bottom = 201.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-bbcode_text = "[b][u]About Sticks and Stones[/u][/b]
+bbcode_text = "[b][u]About Sticktorio[/u][/b]
 
 
 [b]Game by Flipez[/b] ([url=https://github.com/Flipez]GitHub[/url] | [url=https://auch.cool]Blog[/url])
@@ -528,8 +528,10 @@ bbcode_text = "[b][u]About Sticks and Stones[/u][/b]
 
 [b]Background Music:[/b] [url=https://joshuuu.itch.io/short-loopable-background-music]joshuuu[/url]
 [b]Interface Sounds:[/b] [url=https://assetstore.unity.com/packages/audio/sound-fx/interface-and-item-sounds-89646]Cafofo[/url]
-[b]Icons:[/b] [url=https://assetstore.unity.com/packages/2d/gui/icons/fantasy-icons-megapack-97000]REXARD[/url]"
-text = "About Sticks and Stones
+[b]Icons:[/b] [url=https://assetstore.unity.com/packages/2d/gui/icons/fantasy-icons-megapack-97000]REXARD[/url]
+
+Thanks to Sam and Markus for tips and testing!"
+text = "About Sticktorio
 
 
 Game by Flipez (GitHub | Blog)
@@ -537,7 +539,9 @@ Game by Flipez (GitHub | Blog)
 
 Background Music: joshuuu
 Interface Sounds: Cafofo
-Icons: REXARD"
+Icons: REXARD
+
+Thanks to Sam and Markus for tips and testing!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
