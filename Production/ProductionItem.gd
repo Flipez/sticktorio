@@ -46,11 +46,13 @@ func tick():
 
 func _on_HireButton_pressed():
   Inventory.decrease(currency, price)
+  Targets.cur_employment += 1
   production_count += 1
   Targets.play_ui_sound()
 
 func _on_FireButton_pressed():
   production_count -= 1
+  Targets.cur_employment -= 1
   Targets.play_ui_sound()
 
 func _on_CheckBox_pressed():
